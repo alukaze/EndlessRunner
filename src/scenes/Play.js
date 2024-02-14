@@ -11,11 +11,18 @@ class Play extends Phaser.Scene {
 
         //add bird to scene
         this.birdy = new Birdy(this, 480, 320, 'birdy', 0, 'down')
-        this.birdy.play('idle', true)
 
         //keyboard input
         this.keys = this.input.keyboard.createCursorKeys()
-        this.keys.SpaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+        keyFLY = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+
+        //handling velocity for bird
+        this.birdy.velocityY = 0
+        this.birdy.accelerationY = 20
+        this.birdy.maxVelocityY = -500
+
+        this.physics.add.collider(this.birdy, this.water)
+        
     }
 
     update() {
@@ -24,6 +31,22 @@ class Play extends Phaser.Scene {
         this.water.tilePositionX -= 1  
         this.water.tilePositionY -= 1
 
+        if (Phaser.Input.Keyboard.JustDown(keyFLY)) {
+            //Reset velocity before jumping
+            this.birdy.velocityY = 0
+        }
+
+        if (keyFLY.isDown && this.birdy.body.velocity.y > this.birdy.maxVelocityY){
+            //Increase velocity gradually
+            this.birdy.velocityY -= this.birdy.accelerationY
+            //Set the velocity of the bird
+            this.birdy.setVelocityY(this.birdy.velocityY)
+        }
+
+        if (this.birdy.y > 571) {
+            this.birdy.setGravity(0)
+            this.birdy.setVelocityY(0)
+        }
 
     }
 }

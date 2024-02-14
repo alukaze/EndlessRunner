@@ -8,7 +8,7 @@ let config = {
     type: Phaser.AUTO,
     width: 960,
     height: 640,
-    pixleArt: true,
+    pixelArt: true,
     scene: [Load, Play],
     physics: {
         default: "arcade",
@@ -18,5 +18,7 @@ let config = {
     }
 
 }
+
+let keyFLY
 
 let game = new Phaser.Game(config)

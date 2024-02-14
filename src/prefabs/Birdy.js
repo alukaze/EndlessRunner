@@ -11,6 +11,8 @@ class Birdy extends Phaser.Physics.Arcade.Sprite {
     }
 
     update() {
-       
+
     }
 }
+
+
