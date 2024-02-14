@@ -3,16 +3,21 @@ class Load extends Phaser.Scene {
         super('menuScene')
     }
     preload() {
-        // load background and images
+        // load background 
         this.load.image('stars', './assets/background1.png')
         this.load.image('mountains', './assets/mountains.png')
         this.load.image('water', './assets/water.png')
 
-        //load sprite sheet
+        //load bird sprite sheet
         this.load.spritesheet('birdy', './assets/birdy.png', {
             frameWidth: 60,
             frameHeight: 50,
         })
+
+        //load rock
+        this.load.image('rock', './assets/rock.png')
+        
+
     }
 
     create() {

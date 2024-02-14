@@ -20,5 +20,8 @@ let config = {
 }
 
 let keyFLY
+let score = 0
+let highscore = 0
+
 
 let game = new Phaser.Game(config)

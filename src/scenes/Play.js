@@ -22,7 +22,21 @@ class Play extends Phaser.Scene {
         this.birdy.maxVelocityY = -500
 
         this.physics.add.collider(this.birdy, this.water)
+
+        //rock group
+        this.rockGroup = this.add.group({
+            runChildUpdate: true
+        })
         
+    }
+
+    //spawning in rocks
+    spawnRocks() {
+        var minY = Phaser.Math.MinSub(this.birdy.y, 126, 0);
+        var maxY = Phaser.Math.MaxAdd(this.birdy.y, 126, game.config.height - 21);
+        var spawnY = Phaser.Math.Between(minY, maxY);
+        let rock = new Rock(this, game.config.width, spawnY, 'rock');
+        this.rockGroup.add(rock);
     }
 
     update() {
@@ -42,11 +56,14 @@ class Play extends Phaser.Scene {
             //Set the velocity of the bird
             this.birdy.setVelocityY(this.birdy.velocityY)
         }
-
+        // game end condition
         if (this.birdy.y > 571) {
             this.birdy.setGravity(0)
             this.birdy.setVelocityY(0)
         }
 
+        //spawn rocks
+        this.spawnRocks()
     }
+
 }
