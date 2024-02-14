@@ -8,7 +8,14 @@ let config = {
     type: Phaser.AUTO,
     width: 960,
     height: 640,
-    scene: [Menu, Play]
+    pixleArt: true,
+    scene: [Load, Play],
+    physics: {
+        default: "arcade",
+        arcade: {
+            debug: true
+        }
+    }
 
 }
 
