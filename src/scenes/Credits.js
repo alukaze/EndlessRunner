@@ -35,7 +35,7 @@ class Credits extends Phaser.Scene {
             align: 'center',
             color: '#000000' 
         }
-        let cred = this.add.text(game.config.width/2, game.config.height/2 - 50, 'Programmer: Alan Lu\n Artist: Alan Lu\n Designer: Alan Lu', creds).setOrigin(0.5)
+        let cred = this.add.text(game.config.width/2, game.config.height/2 - 50, 'Programmer: Alan Lu\n Artist: Alan Lu\n Designer: Alan Lu\n Sound Effects: https://mixkit.co', creds).setOrigin(0.5)
         let title1 = this.add.text(game.config.width/2, game.config.height/2 + 100, 'Press SPACE to Return to Title', title).setOrigin(0.5)
     }
 

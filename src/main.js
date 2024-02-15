@@ -25,7 +25,7 @@ let config = {
 
 }
 
-let keyFLY, keySTART, keyCREDITS, keyTITLE
+let keyFLY, keySTART, keyCREDITS, keyTITLE, keyEXIT
 let score = 0
 let backgroundMusic = false
 

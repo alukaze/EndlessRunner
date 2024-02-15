@@ -31,6 +31,7 @@ class Play extends Phaser.Scene {
         //keyboard input
         keyFLY = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
         keyTITLE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
+        keyEXIT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X)
 
         //handling velocity for bird
         this.birdy.velocityY = 0
@@ -63,7 +64,7 @@ class Play extends Phaser.Scene {
             fixedWidth: 0
         }
         this.instructions = this.add.text(game.config.width/2, game.config.height - 500, 'Dodge Rocks and Avoid Water!\n Press SPACE to Begin!', textConfig).setOrigin(0.5)
-        this.afterGO = this.add.text(game.config.width/2, game.config.height - 500, 'Press SPACE to Restart\n Press F to Return to Title', textConfig).setOrigin(0.5)
+        this.afterGO = this.add.text(game.config.width/2, game.config.height - 500, 'Press F to Restart\n Press X to Return to Title', textConfig).setOrigin(0.5)
         this.afterGO.visible = false
     }   
 
@@ -128,6 +129,12 @@ class Play extends Phaser.Scene {
                 this.birdy.setVelocityY(this.birdy.velocityY)
             }
         }
+
+        //touch rock end condition
+        if (!this.gameOver) {
+            this.physics.world.overlap(this.birdy, this.rockGroup, this.hitRock, null, this);
+        }
+
         //birdy touch water end condition
         if (this.birdy.y > 571) {
             this.birdy.setGravity(0)
@@ -138,13 +145,13 @@ class Play extends Phaser.Scene {
 
         if (this.gameOver) {
             this.afterGO.visible = true
-            if (Phaser.Input.Keyboard.JustDown(keyFLY)) {
+            if (Phaser.Input.Keyboard.JustDown(keyTITLE)) {
                 this.sound.play('buttonSound', {volume: 0.8})
                 this.music.stop()
                 backgroundMusic = false
                 this.scene.restart()
             }
-            if (Phaser.Input.Keyboard.JustDown(keyTITLE)) {
+            if (Phaser.Input.Keyboard.JustDown(keyEXIT)) {
                 this.sound.play('buttonSound', {volume: 0.8})
                 this.music.stop()
                 backgroundMusic = false
@@ -153,4 +160,8 @@ class Play extends Phaser.Scene {
         }
     }
 
+    hitRock(birdy, rock) {
+        this.gameOver = true;
+        this.sound.play('collideSound', { volume: 0.8 });
+    }
 }
