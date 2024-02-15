@@ -21,8 +21,9 @@ class Rock extends Phaser.Physics.Arcade.Sprite {
 
         }
         //increase score
-        if (this.parentScene.birdyHit == false && this.x < this.parentScene.birdy.x && this.passed) {
+        if (this.parentScene.gameOver == false && this.x < this.parentScene.birdy.x && this.passed) {
             score += 1;
+            this.parentScene.sound.play('scoreSound', {volume: 0.4})
             this.passed = false
         
     }

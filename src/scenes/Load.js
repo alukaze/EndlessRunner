@@ -17,6 +17,11 @@ class Load extends Phaser.Scene {
         //load rock
         this.load.image('rock', './assets/rock.png')
         
+        //load sound
+        this.load.audio('backgroundMusic', './assets/gameMusic.mp3')
+        this.load.audio('collideSound', './assets/clang.wav')
+        this.load.audio('buttonSound', './assets/click.wav')
+        this.load.audio('scoreSound', './assets/score.wav')
 
     }
 

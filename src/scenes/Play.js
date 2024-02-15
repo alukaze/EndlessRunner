@@ -5,6 +5,14 @@ class Play extends Phaser.Scene {
 
     create() {
 
+        //music
+        this.music = this.sound.add('backgroundMusic', { volume: 0.7, loop: true });
+        if (backgroundMusic == false) {
+            this.music.play();
+            backgroundMusic = true;
+        }
+
+
         //game start/end
         this.gameOver = false
         this.gameStart = false
@@ -21,8 +29,8 @@ class Play extends Phaser.Scene {
         this.birdy.setGravityY(0)
 
         //keyboard input
-        this.keys = this.input.keyboard.createCursorKeys()
         keyFLY = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+        keyTITLE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
 
         //handling velocity for bird
         this.birdy.velocityY = 0
@@ -43,10 +51,21 @@ class Play extends Phaser.Scene {
             align: 'left',
             padding: 5,
         }
-        this.scoreboard = this.add.text(70, 64/2 , score, scoreConfig).setOrigin(1,0).setDepth(100);
+        this.scoreboard = this.add.text(70, 64/2 , score, scoreConfig).setOrigin(1,0).setDepth(100)
 
-        
-    }
+        //instructions
+        let textConfig = {
+            fontFamily: 'Comic Sans',
+            fontSize: '50px',
+            color: '#FFFFFF',
+            align: 'center',
+            padding: 5,
+            fixedWidth: 0
+        }
+        this.instructions = this.add.text(game.config.width/2, game.config.height - 500, 'Dodge Rocks and Avoid Water!\n Press SPACE to Begin!', textConfig).setOrigin(0.5)
+        this.afterGO = this.add.text(game.config.width/2, game.config.height - 500, 'Press SPACE to Restart\n Press F to Return to Title', textConfig).setOrigin(0.5)
+        this.afterGO.visible = false
+    }   
 
     //spawning in rocks
     spawnRocks() {
@@ -62,6 +81,7 @@ class Play extends Phaser.Scene {
     update() {
 
         if (this.gameStart == false && Phaser.Input.Keyboard.JustDown(keyFLY)){
+            this.instructions.visible = false
             this.birdy.x = 55
             this.birdy.setGravityY(1000)
             this.gameStart = true
@@ -89,8 +109,6 @@ class Play extends Phaser.Scene {
             this.rockSpawnTimer.delay = 400;
         }
 
-    
-
         //background
         this.stars.tilePositionX += 3
         this.mountains.tilePositionX -= 1
@@ -98,15 +116,17 @@ class Play extends Phaser.Scene {
         this.water.tilePositionY -= 1
 
         //handle flight
-        if (Phaser.Input.Keyboard.JustDown(keyFLY)) {
-            //Reset velocity before jumping
-            this.birdy.velocityY = 0
-        }
-        if (keyFLY.isDown && this.birdy.body.velocity.y > this.birdy.maxVelocityY){
-            //Increase velocity gradually
-            this.birdy.velocityY -= this.birdy.accelerationY
-            //Set the velocity of the bird
-            this.birdy.setVelocityY(this.birdy.velocityY)
+        if (!this.gameOver) {
+            if (Phaser.Input.Keyboard.JustDown(keyFLY)) {
+                //Reset velocity before jumping
+                this.birdy.velocityY = 0
+            }
+            if (keyFLY.isDown && this.birdy.body.velocity.y > this.birdy.maxVelocityY){
+                //Increase velocity gradually
+                this.birdy.velocityY -= this.birdy.accelerationY
+                //Set the velocity of the bird
+                this.birdy.setVelocityY(this.birdy.velocityY)
+            }
         }
         //birdy touch water end condition
         if (this.birdy.y > 571) {
@@ -116,7 +136,21 @@ class Play extends Phaser.Scene {
             this.birdy.play('idle', true)
         }
 
-        
+        if (this.gameOver) {
+            this.afterGO.visible = true
+            if (Phaser.Input.Keyboard.JustDown(keyFLY)) {
+                this.sound.play('buttonSound', {volume: 0.8})
+                this.music.stop()
+                backgroundMusic = false
+                this.scene.restart()
+            }
+            if (Phaser.Input.Keyboard.JustDown(keyTITLE)) {
+                this.sound.play('buttonSound', {volume: 0.8})
+                this.music.stop()
+                backgroundMusic = false
+                this.scene.start('titleScene')
+            }
+        }
     }
 
 }

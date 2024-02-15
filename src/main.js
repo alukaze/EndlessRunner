@@ -25,9 +25,8 @@ let config = {
 
 }
 
-let keyFLY, keySTART, keyCREDITS
+let keyFLY, keySTART, keyCREDITS, keyTITLE
 let score = 0
-let highscore = 0
-
+let backgroundMusic = false
 
 let game = new Phaser.Game(config)

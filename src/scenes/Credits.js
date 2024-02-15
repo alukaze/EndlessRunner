@@ -11,6 +11,14 @@ class Credits extends Phaser.Scene {
         //set title screen
         this.add.image(game.config.width/2, game.config.height/2, 'credits')
 
+        //music
+        this.music = this.sound.add('backgroundMusic', { volume: 0.7, loop: true });
+        if (backgroundMusic == false) {
+            this.music.play();
+            backgroundMusic = true;
+        }
+
+
         //define keys
         keySTART = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
 
@@ -33,6 +41,9 @@ class Credits extends Phaser.Scene {
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keySTART)) {
+            this.sound.play('buttonSound', {volume: 0.8})
+            this.music.stop()
+            backgroundMusic = false
             this.scene.start('titleScene')
         }
     }
