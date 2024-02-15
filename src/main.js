@@ -1,7 +1,7 @@
 // Name: Alan Lu
 // Date: 14 February 2024
 // Name of Game: One Bird with Infinite Stones
-// Hours Spent: 
+// Hours Spent: 50+
 // Creative Tilt: I am particularly proud of being able to implement the flying/going up mechanic in this game. 
 // This was something that wasn't covered in class and I managed to get it done on my own through trial and error. 
 // When I made this game I was going for a kind of retro style and I hope I managed to convey that visually. 
