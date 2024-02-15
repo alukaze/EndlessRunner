@@ -14,6 +14,7 @@ class Title extends Phaser.Scene {
 
         //define keys
         keySTART = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+        keyCREDITS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F)
 
         let title = {
             fontFamily: 'Open Sans',
@@ -23,11 +24,15 @@ class Title extends Phaser.Scene {
         }
 
         let title1 = this.add.text(game.config.width/2, game.config.height/2 + 100, 'Press SPACE to Start', title).setOrigin(0.5)
+        let title2 = this.add.text(game.config.width/2, game.config.height/2 + 140, 'Press F for Credits', title).setOrigin(0.5)
     }
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keySTART)) {
             this.scene.start('playScene')
+        }
+        if (Phaser.Input.Keyboard.JustDown(keyCREDITS)) {
+            this.scene.start('creditsScene')
         }
     }
 
