@@ -4,7 +4,7 @@ class Credits extends Phaser.Scene {
     }
     preload() {
         //load images
-        this.load.image('credits', './assets/Credits.png')
+        this.load.image('credits', './assets/credits.png')
     }
 
     create() {
