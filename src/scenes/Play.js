@@ -113,7 +113,7 @@ class Play extends Phaser.Scene {
 
         //background
         this.stars.tilePositionX += 3
-        this.mountains.tilePositionX -= 1
+        this.mountains.tilePositionX += 1
         this.water.tilePositionX -= 1  
         this.water.tilePositionY -= 1
 
