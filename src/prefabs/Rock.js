@@ -7,6 +7,7 @@ class Rock extends Phaser.Physics.Arcade.Sprite {
         this.scene.physics.add.existing(this)
         this.setImmovable()
         this.speed = 5
+        
 
     }
     update() {
@@ -17,6 +18,13 @@ class Rock extends Phaser.Physics.Arcade.Sprite {
             this.destroy()
 
         }
+
+        if (this.parentScene.birdyHit == false && this.newRock && this.x < 200) {
+            // (recursively) call parent scene method from this context
+            this.parentScene.spawnRocks();
+            
+        }
+
 
         
         

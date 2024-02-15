@@ -36,7 +36,7 @@ class Load extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('birdy', {start: 5, end: 5})
         })
 
-        this.scene.start('playScene')
+        this.scene.start('titleScene')
     }
 
     update() {

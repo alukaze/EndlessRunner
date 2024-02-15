@@ -9,7 +9,7 @@ let config = {
     width: 960,
     height: 640,
     pixelArt: true,
-    scene: [Load, Play],
+    scene: [Load, Title, Play],
     physics: {
         default: "arcade",
         arcade: {
@@ -19,7 +19,7 @@ let config = {
 
 }
 
-let keyFLY
+let keyFLY, keySTART
 let score = 0
 let highscore = 0
 

@@ -4,6 +4,11 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+
+        //game start/end
+        this.gameOver = false
+        this.gameStart = false
+
         //creating background
         this.stars = this.add.tileSprite(0, 0, 960, 640, 'stars').setOrigin(0, 0)
         this.mountains = this.add.tileSprite(0, 85, 960, 640, 'mountains').setOrigin(0, 0)
@@ -11,6 +16,9 @@ class Play extends Phaser.Scene {
 
         //add bird to scene
         this.birdy = new Birdy(this, 480, 320, 'birdy', 0, 'down')
+        this.birdyHit = false;
+        this.birdy.play('idle', true)
+        this.birdy.setGravityY(0)
 
         //keyboard input
         this.keys = this.input.keyboard.createCursorKeys()
@@ -40,7 +48,16 @@ class Play extends Phaser.Scene {
     }
 
     update() {
-        this.stars.tilePositionX -= 3
+
+        if (this.gameStart == false && Phaser.Input.Keyboard.JustDown(keyFLY)){
+            this.birdy.x = 55
+            this.birdy.setGravityY(1000)
+            this.gameStart = true
+            this.birdy.play('fly', true)
+        }
+
+
+        this.stars.tilePositionX += 3
         this.mountains.tilePositionX -= 1
         this.water.tilePositionX -= 1  
         this.water.tilePositionY -= 1
@@ -60,10 +77,13 @@ class Play extends Phaser.Scene {
         if (this.birdy.y > 571) {
             this.birdy.setGravity(0)
             this.birdy.setVelocityY(0)
+            this.gameOver = true
+            this.birdy.play('idle', true)
         }
 
         //spawn rocks
-        this.spawnRocks()
+        //this.spawnRocks()
+        
     }
 
 }
