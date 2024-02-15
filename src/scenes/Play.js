@@ -45,6 +45,7 @@ class Play extends Phaser.Scene {
             runChildUpdate: true
         })
         //score display
+        score = 0
         let scoreConfig = {
             fontFamily: 'Comic Sans',
             fontSize: '32px',
@@ -156,6 +157,7 @@ class Play extends Phaser.Scene {
                 this.music.stop()
                 backgroundMusic = false
                 this.scene.start('titleScene')
+                
             }
         }
     }
